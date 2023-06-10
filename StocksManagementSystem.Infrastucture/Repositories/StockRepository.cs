@@ -39,5 +39,22 @@ namespace StocksManagementSystem.Infrastucture.Repositories
         {
             return await _dataContext.Stocks.SingleAsync(s => s.Id == stockId);
         }
+
+        /// <summary>
+        /// Shuffles the prices of stocks in the database.
+        /// </summary>
+        /// <returns>A task representing the asynchronous operation.</returns>
+        public async Task ShufflePrices()
+        {
+            var rnd = new Random();
+
+            var stocks = await _dataContext.Stocks.ToListAsync();
+            stocks.ForEach(s =>
+            {
+                s.Price = rnd.Next(1, 101);
+            });
+
+            await _dataContext.SaveChangesAsync();
+        }
     }
 }

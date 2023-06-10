@@ -19,5 +19,11 @@ namespace StocksManagementSystem.Services.Interfaces
         /// </summary>
         /// <returns>The collection of stocks.</returns>
         Task<IEnumerable<Stock>> GetAll();
+
+        /// <summary>
+        /// Shuffles the prices of stocks using the stock repository.
+        /// </summary>
+        /// <returns></returns>
+        Task ShufflePrices();
     }
 }

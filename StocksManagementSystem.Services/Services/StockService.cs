@@ -34,5 +34,14 @@ namespace StocksManagementSystem.Services.Services
         {
             return await _stockRepository.GetAll();
         }
+
+        /// <summary>
+        /// Shuffles the prices of stocks using the stock repository.
+        /// </summary>
+        /// <returns></returns>
+        public async Task ShufflePrices()
+        {
+            await _stockRepository.ShufflePrices();
+        }
     }
 }

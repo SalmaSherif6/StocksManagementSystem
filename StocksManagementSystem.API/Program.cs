@@ -1,4 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using StocksManagementSystem.API.Hubs;
+using StocksManagementSystem.API.Interfaces;
+using StocksManagementSystem.API.Services;
 using StocksManagementSystem.Infrastucture.DbContexts;
 using StocksManagementSystem.Infrastucture.Repositories;
 using StocksManagementSystem.Services.Interfaces;
@@ -16,10 +19,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddCors();
+builder.Services.AddSignalR();
 builder.Services.AddScoped<IStockService, StockService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IHubService, HubService>();
+builder.Services.AddScoped<ISignalRService, SignalRService>();
 
 var app = builder.Build();
 
@@ -43,6 +49,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<NotificationHub>("/notification");
 
 app.Run();
 

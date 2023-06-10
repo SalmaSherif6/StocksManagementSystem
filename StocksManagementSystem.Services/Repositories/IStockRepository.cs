@@ -19,5 +19,11 @@ namespace StocksManagementSystem.Services.Repositories
         /// <param name="stockId">The identifier of the stock.</param>
         /// <returns>The stock.</returns>
         Task<Stock> GetById(int stockId);
+
+        /// <summary>
+        /// Shuffles the prices of stocks in the database.
+        /// </summary>
+        /// <returns></returns>
+        Task ShufflePrices();
     }
 }

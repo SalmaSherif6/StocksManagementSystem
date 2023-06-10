@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StocksManagementSystem.API.Interfaces;
 using StocksManagementSystem.Domain.Entities;
 using StocksManagementSystem.Services.Interfaces;
 
@@ -9,10 +10,12 @@ namespace StocksManagementSystem.API.Controllers
     public class StockController : ControllerBase
     {
         private IStockService _stockService;
+        private ISignalRService _signalRService;
 
-        public StockController(IStockService stockService)
+        public StockController(IStockService stockService, ISignalRService signalRService)
         {
             _stockService = stockService;
+            _signalRService = signalRService;
         }
 
         /// <summary>
@@ -39,5 +42,20 @@ namespace StocksManagementSystem.API.Controllers
 
             return Ok(stock);
         }
+
+        /// <summary>
+        /// Handles an HTTP GET request to shuffle the prices of stocks and send a notification to clients using SignalR.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("shuffleStockPrices")]
+        public async Task<ActionResult> ShuffleStockPrices()
+        {
+            await _stockService.ShufflePrices();
+
+            await _signalRService.SendStockPricesUpdateNotification();
+
+            return Ok();
+        }
+
     }
 }
