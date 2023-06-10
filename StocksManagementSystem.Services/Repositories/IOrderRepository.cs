@@ -11,33 +11,33 @@ namespace StocksManagementSystem.Services.Repositories
         /// Gets all the orders.
         /// </summary>
         /// <returns>The collection of orders.</returns>
-        IEnumerable<Order> GetAll();
+        Task<IEnumerable<Order>> GetAll();
 
         /// <summary>
         /// Gets the order by its identifier.
         /// </summary>
         /// <param name="orderId">The identifier of the order.</param>
         /// <returns>The order.</returns>
-        Order GetById(int orderId);
+        Task<Order> GetById(int orderId);
 
         /// <summary>
         /// Creates a new order.
         /// </summary>
         /// <param name="order">The order to create.</param>
         /// <returns>The created order.</returns>
-        Order Create(Order order);
+        Task<Order> Create(Order order);
 
         /// <summary>
         /// Updates an existing order.
         /// </summary>
         /// <param name="order">The order to update.</param>
         /// <returns>The updated order.</returns>
-        Order Update(Order order);
+        Task<Order> Update(Order order);
 
         /// <summary>
         /// Deletes an order by its identifier.
         /// </summary>
         /// <param name="orderId">The identifier of the order to delete.</param>
-        void DeleteOrder(int orderId);
+        Task DeleteOrder(int orderId);
     }
 }

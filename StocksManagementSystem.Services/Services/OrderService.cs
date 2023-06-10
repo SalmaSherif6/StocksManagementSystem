@@ -21,18 +21,18 @@ namespace StocksManagementSystem.Services.Services
         /// </summary>
         /// <param name="order">The order to create.</param>
         /// <returns>The created order.</returns>
-        public Task<Order> Create(Order order)
+        public async Task<Order> Create(Order order)
         {
-            return Task.FromResult(_orderRepository.Create(order));
+            return await _orderRepository.Create(order);
         }
 
         /// <summary>
         /// Deletes an order by its identifier.
         /// </summary>
         /// <param name="orderId">The identifier of the order to delete.</param>
-        public void Delete(int orderId)
+        public async Task Delete(int orderId)
         {
-            _orderRepository.DeleteOrder(orderId);
+            await _orderRepository.DeleteOrder(orderId);
         }
 
         /// <summary>
@@ -40,18 +40,18 @@ namespace StocksManagementSystem.Services.Services
         /// </summary>
         /// <param name="orderId">The identifier of the order.</param>
         /// <returns>The order.</returns>
-        public Task<Order> Get(int orderId)
+        public async Task<Order> Get(int orderId)
         {
-            return Task.FromResult(_orderRepository.GetById(orderId));
+            return await _orderRepository.GetById(orderId);
         }
 
         /// <summary>
         /// Gets all the orders.
         /// </summary>
         /// <returns>The collection of orders.</returns>
-        public Task<IEnumerable<Order>> GetAll()
+        public async Task<IEnumerable<Order>> GetAll()
         {
-            return Task.FromResult(_orderRepository.GetAll());
+            return await _orderRepository.GetAll();
         }
 
         /// <summary>
@@ -59,16 +59,16 @@ namespace StocksManagementSystem.Services.Services
         /// </summary>
         /// <param name="order">The order to update.</param>
         /// <returns>The updated order.</returns>
-        public Task<Order> Update(Order order)
+        public async Task<Order> Update(Order order)
         {
-            var sourceOrder = _orderRepository.GetById(order.Id);
+            var sourceOrder = await _orderRepository.GetById(order.Id);
 
             sourceOrder.Quantity = order.Quantity;
             sourceOrder.Price = order.Price;
             sourceOrder.StockID = order.StockID;
             sourceOrder.PersonName = order.PersonName;
 
-            return Task.FromResult(sourceOrder);
+            return await _orderRepository.Update(sourceOrder);
         }
     }
 }

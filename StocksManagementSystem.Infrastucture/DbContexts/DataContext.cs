@@ -9,6 +9,14 @@ namespace StocksManagementSystem.Infrastucture.DbContexts
     public class DataContext : DbContext
     {
         /// <summary>
+        /// Initializes a new instance of <see cref="DataContext"/> class.
+        /// </summary>
+        /// <param name="options">The options for configuring the data context.</param>
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        {
+        }
+
+        /// <summary>
         /// Gets or sets the stocks in the system.
         /// </summary>
         public DbSet<Stock> Stocks { get; set; }
@@ -17,13 +25,5 @@ namespace StocksManagementSystem.Infrastucture.DbContexts
         /// Gets or sets the orders in the system.
         /// </summary>
         public DbSet<Order> Orders { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of <see cref="DataContext"/> class.
-        /// </summary>
-        /// <param name="options">The options for configuring the data context.</param>
-        public DataContext(DbContextOptions<DataContext> options) : base(options)
-        {
-        }
     }
 }

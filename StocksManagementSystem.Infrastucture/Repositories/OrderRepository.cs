@@ -1,4 +1,5 @@
-﻿using StocksManagementSystem.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using StocksManagementSystem.Domain.Entities;
 using StocksManagementSystem.Infrastucture.DbContexts;
 using StocksManagementSystem.Services.Repositories;
 
@@ -24,9 +25,9 @@ namespace StocksManagementSystem.Infrastucture.Repositories
         /// Gets all the orders.
         /// </summary>
         /// <returns>The collection of orders.</returns>
-        public IEnumerable<Order> GetAll()
+        public async Task<IEnumerable<Order>> GetAll()
         {
-            return _dataContext.Orders;
+            return await Task.FromResult(_dataContext.Orders);
         }
 
         /// <summary>
@@ -34,9 +35,9 @@ namespace StocksManagementSystem.Infrastucture.Repositories
         /// </summary>
         /// <param name="orderId">The order identifier.</param>
         /// <returns>The order.</returns>
-        public Order GetById(int orderId)
+        public async Task<Order> GetById(int orderId)
         {
-            return _dataContext.Orders.Single(o => o.Id == orderId);
+            return await _dataContext.Orders.SingleAsync(o => o.Id == orderId);
         }
 
         /// <summary>
@@ -44,9 +45,11 @@ namespace StocksManagementSystem.Infrastucture.Repositories
         /// </summary>
         /// <param name="order">The order to create.</param>
         /// <returns>The created order.</returns>
-        public Order Create(Order order)
+        public async Task<Order> Create(Order order)
         {
-            _dataContext.Orders.Add(order);
+            await _dataContext.Orders.AddAsync(order);
+            await _dataContext.SaveChangesAsync();
+
             return order;
         }
 
@@ -55,9 +58,11 @@ namespace StocksManagementSystem.Infrastucture.Repositories
         /// </summary>
         /// <param name="order">The order to update.</param>
         /// <returns>The updated order.</returns>
-        public Order Update(Order order)
+        public async Task<Order> Update(Order order)
         {
             _dataContext.Orders.Update(order);
+            await _dataContext.SaveChangesAsync();
+
             return order;
         }
 
@@ -66,11 +71,14 @@ namespace StocksManagementSystem.Infrastucture.Repositories
         /// </summary>
         /// <param name="orderId">The identifier of the order to delete.</param>
         /// <returns></returns>
-        public void DeleteOrder(int orderId)
+        public async Task DeleteOrder(int orderId)
         {
-            var order = _dataContext.Orders.Single(o => o.Id == orderId);
-
-            _dataContext.Orders.Remove(order);
+            var order = await _dataContext.Orders.SingleAsync(o => o.Id == orderId);
+            if (order != null)
+            {
+                _dataContext.Orders.Remove(order);
+                await _dataContext.SaveChangesAsync();
+            }
         }
     }
 }

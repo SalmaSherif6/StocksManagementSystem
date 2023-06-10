@@ -25,7 +25,7 @@ namespace StocksManagementSystem.Services.Interfaces
         /// Deletes an order by its identifier.
         /// </summary>
         /// <param name="orderId">The identifier of the order to delete.</param>
-        void Delete(int orderId);
+        Task Delete(int orderId);
 
         /// <summary>
         /// Gets an order by its identifier.
