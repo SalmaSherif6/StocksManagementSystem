@@ -15,6 +15,10 @@ namespace StocksManagementSystem.API.Controllers
             _stockService = stockService;
         }
 
+        /// <summary>
+        /// Retrieves all stocks.
+        /// </summary>
+        /// <returns>The collection of stocks.</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Stock>>> GetAllStocks()
         {
@@ -23,6 +27,11 @@ namespace StocksManagementSystem.API.Controllers
             return Ok(stocks);
         }
 
+        /// <summary>
+        /// Retrieves a stock by its identifier.
+        /// </summary>
+        /// <param name="id">The identifier of the stock.</param>
+        /// <returns>The stock.</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Stock>> GetStockById(int id)
         {

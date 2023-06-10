@@ -15,6 +15,10 @@ namespace StocksManagementSystem.API.Controllers
             _orderService = orderService;
         }
 
+        /// <summary>
+        /// Retrieves all orders.
+        /// </summary>
+        /// <returns>The collection of orders.</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetAllOrders()
         {
@@ -23,6 +27,11 @@ namespace StocksManagementSystem.API.Controllers
             return Ok(orders);
         }
 
+        /// <summary>
+        /// Retrieves an order by its identifier.
+        /// </summary>
+        /// <param name="id">The identifier of the order.</param>
+        /// <returns>The order.</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> GetOrderById(int id)
         {
@@ -31,6 +40,11 @@ namespace StocksManagementSystem.API.Controllers
             return Ok(order);
         }
 
+        /// <summary>
+        /// Creates a new order.
+        /// </summary>
+        /// <param name="order">The order to create.</param>
+        /// <returns>The created order.</returns>
         [HttpPost]
         public async Task<ActionResult<Order>> CreateOrder(Order order)
         {
@@ -39,6 +53,11 @@ namespace StocksManagementSystem.API.Controllers
             return Ok(createdOrder);
         }
 
+        /// <summary>
+        /// Updates an existing order.
+        /// </summary>
+        /// <param name="newOrder">The updated order.</param>
+        /// <returns>The updated order.</returns>
         [HttpPut]
         public async Task<ActionResult<Order>> UpdateOrder(Order newOrder)
         {
@@ -47,6 +66,11 @@ namespace StocksManagementSystem.API.Controllers
             return Ok(updatedOrder);
         }
 
+        /// <summary>
+        /// Deletes an order by its identifier.
+        /// </summary>
+        /// <param name="id">The identifier of the order to be delete.</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteOrder(int id)
         {
