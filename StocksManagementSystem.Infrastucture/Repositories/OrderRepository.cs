@@ -27,7 +27,9 @@ namespace StocksManagementSystem.Infrastucture.Repositories
         /// <returns>The collection of orders.</returns>
         public async Task<IEnumerable<Order>> GetAll()
         {
-            return await Task.FromResult(_dataContext.Orders);
+            return await _dataContext.Orders
+                .Include(o => o.Stock)
+                .ToListAsync();
         }
 
         /// <summary>

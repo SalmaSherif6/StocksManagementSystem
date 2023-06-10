@@ -23,6 +23,14 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 var app = builder.Build();
 
+app.UseCors(x =>
+{
+    x.AllowAnyHeader()
+     .AllowAnyMethod()
+     .WithOrigins("http://localhost:4200")
+     .AllowCredentials();
+});
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

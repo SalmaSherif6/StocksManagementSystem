@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StocksManagementSystem.Domain.DTO;
 using StocksManagementSystem.Domain.Entities;
 using StocksManagementSystem.Services.Interfaces;
 
@@ -46,9 +47,17 @@ namespace StocksManagementSystem.API.Controllers
         /// <param name="order">The order to create.</param>
         /// <returns>The created order.</returns>
         [HttpPost]
-        public async Task<ActionResult<Order>> CreateOrder(Order order)
+        public async Task<ActionResult<Order>> CreateOrder(OrderDTO order)
         {
-            var createdOrder = await _orderService.Create(order);
+            var orderToCreate = new Order
+            {
+                PersonName = order.PersonName,
+                Quantity = order.Quantity,
+                Price = order.Price,
+                StockID = order.StockID,
+            };
+
+            var createdOrder = await _orderService.Create(orderToCreate);
 
             return Ok(createdOrder);
         }
@@ -59,9 +68,18 @@ namespace StocksManagementSystem.API.Controllers
         /// <param name="newOrder">The updated order.</param>
         /// <returns>The updated order.</returns>
         [HttpPut]
-        public async Task<ActionResult<Order>> UpdateOrder(Order newOrder)
+        public async Task<ActionResult<Order>> UpdateOrder(int id, OrderDTO newOrder)
         {
-            var updatedOrder = await _orderService.Update(newOrder);
+            var orderToUpdate = new Order
+            {
+                Id = id,
+                PersonName = newOrder.PersonName,
+                Quantity = newOrder.Quantity,
+                Price = newOrder.Price,
+                StockID = newOrder.StockID
+            };
+
+            var updatedOrder = await _orderService.Update(orderToUpdate);
 
             return Ok(updatedOrder);
         }

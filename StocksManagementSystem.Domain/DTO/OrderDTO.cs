@@ -1,12 +1,7 @@
-﻿namespace StocksManagementSystem.Domain.Entities
+﻿namespace StocksManagementSystem.Domain.DTO
 {
-    public class Order
+    public class OrderDTO
     {
-        /// <summary>
-        /// The order identifier.
-        /// </summary>
-        public int Id { get; set; }
-
         /// <summary>
         /// The stock identifier.
         /// </summary>
@@ -26,10 +21,5 @@
         /// The person name.
         /// </summary>
         public string PersonName { get; set; }
-
-        /// <summary>
-        /// The stock.
-        /// </summary>
-        public Stock Stock { get; set; }
     }
 }
