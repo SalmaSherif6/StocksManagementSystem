@@ -16,41 +16,41 @@ namespace StocksManagementSystem.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Order>> GetAllOrders()
+        public async Task<ActionResult<IEnumerable<Order>>> GetAllOrders()
         {
-            var orders = _orderService.GetAll();
+            var orders = await _orderService.GetAll();
 
             return Ok(orders);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Order> GetOrderById(int id)
+        public async Task<ActionResult<Order>> GetOrderById(int id)
         {
-            var order = _orderService.Get(id);
+            var order = await _orderService.Get(id);
 
             return Ok(order);
         }
 
         [HttpPost]
-        public ActionResult<Order> CreateOrder(Order order)
+        public async Task<ActionResult<Order>> CreateOrder(Order order)
         {
-            _orderService.Create(order);
+            var createdOrder = await _orderService.Create(order);
 
-            return Ok(order);
+            return Ok(createdOrder);
         }
 
         [HttpPut]
-        public ActionResult<Order> UpdateOrder(Order newOrder)
+        public async Task<ActionResult<Order>> UpdateOrder(Order newOrder)
         {
-            var order = _orderService.Update(newOrder);
+            var updatedOrder = await _orderService.Update(newOrder);
 
-            return Ok(order);
+            return Ok(updatedOrder);
         }
 
         [HttpDelete("{id}")]
-        public ActionResult DeleteOrder(int id)
+        public async Task<ActionResult> DeleteOrder(int id)
         {
-            _orderService.Delete(id);
+            await _orderService.Delete(id);
 
             return Ok();
         }
