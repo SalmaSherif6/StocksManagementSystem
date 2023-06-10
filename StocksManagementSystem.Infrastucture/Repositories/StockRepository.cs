@@ -43,7 +43,7 @@ namespace StocksManagementSystem.Infrastucture.Repositories
         /// <summary>
         /// Shuffles the prices of stocks in the database.
         /// </summary>
-        /// <returns>A task representing the asynchronous operation.</returns>
+        /// <returns></returns>
         public async Task ShufflePrices()
         {
             var rnd = new Random();
