@@ -21,18 +21,18 @@ namespace StocksManagementSystem.Services.Services
         /// </summary>
         /// <param name="stockId">The identifier of the stock.</param>
         /// <returns>The stock.</returns>
-        public Task<Stock> Get(int stockId)
+        public async Task<Stock> Get(int stockId)
         {
-            return Task.FromResult(_stockRepository.GetById(stockId));
+            return await _stockRepository.GetById(stockId);
         }
 
         /// <summary>
         /// Gets all the stocks.
         /// </summary>
         /// <returns>The collection of stocks.</returns>
-        public Task<IEnumerable<Stock>> GetAll()
+        public async Task<IEnumerable<Stock>> GetAll()
         {
-            return Task.FromResult(_stockRepository.GetAll());
+            return await _stockRepository.GetAll();
         }
     }
 }

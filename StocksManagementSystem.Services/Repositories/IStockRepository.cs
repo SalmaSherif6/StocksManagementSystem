@@ -11,13 +11,13 @@ namespace StocksManagementSystem.Services.Repositories
         /// Gets all the stocks.
         /// </summary>
         /// <returns>The collection of stocks.</returns>
-        IEnumerable<Stock> GetAll();
+        Task<IEnumerable<Stock>> GetAll();
 
         /// <summary>
         /// Gets the stock by its identifier.
         /// </summary>
         /// <param name="stockId">The identifier of the stock.</param>
         /// <returns>The stock.</returns>
-        Stock GetById(int stockId);
+        Task<Stock> GetById(int stockId);
     }
 }

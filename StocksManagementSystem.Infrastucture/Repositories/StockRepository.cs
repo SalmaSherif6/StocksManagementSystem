@@ -1,12 +1,14 @@
-﻿using StocksManagementSystem.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using StocksManagementSystem.Domain.Entities;
 using StocksManagementSystem.Infrastucture.DbContexts;
+using StocksManagementSystem.Services.Repositories;
 
 namespace StocksManagementSystem.Infrastucture.Repositories
 {
     /// <summary>
     /// Represents the repository for managing stocks.
     /// </summary>
-    public class StockRepository
+    public class StockRepository : IStockRepository
     {
         private DataContext _dataContext;
 
@@ -23,9 +25,9 @@ namespace StocksManagementSystem.Infrastucture.Repositories
         /// Gets all the stocks.
         /// </summary>
         /// <returns>The collection of stocks.</returns>
-        public IEnumerable<Stock> GetAll()
+        public async Task<IEnumerable<Stock>> GetAll()
         {
-            return _dataContext.Stocks;
+            return await Task.FromResult(_dataContext.Stocks);
         }
 
         /// <summary>
@@ -33,9 +35,9 @@ namespace StocksManagementSystem.Infrastucture.Repositories
         /// </summary>
         /// <param name="stockId">The stock identifier.</param>
         /// <returns>The stock.</returns>
-        public Stock GetById(int stockId)
+        public async Task<Stock> GetById(int stockId)
         {
-            return _dataContext.Stocks.Single(s => s.Id == stockId);
+            return await _dataContext.Stocks.SingleAsync(s => s.Id == stockId);
         }
     }
 }
